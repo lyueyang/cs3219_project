@@ -1,0 +1,10 @@
+services:
+  app:
+    build: service
+    hostname: service_url
+#    ports:
+#      - "1234:6789"
+  webserver:
+    build: webserver
+    ports:
+      - "1235:80"
