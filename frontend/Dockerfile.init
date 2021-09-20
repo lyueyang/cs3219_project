@@ -1,0 +1,12 @@
+# this will create a container specifically to create react projects
+# docker build -f .\Dockerfile.init . -t react_init
+# docker run -it --rm -v {curr_dir}\app:/app react_init  
+
+FROM node:14-alpine
+
+WORKDIR /app
+
+RUN mkdir /files
+
+# have these files ready when image is built
+CMD npx create-react-app /files; cp -v /files/package.json /app; cp -r -v /files/public /app; cp -r -v /files/src /app; cp -v /files/yarn.lock /app
