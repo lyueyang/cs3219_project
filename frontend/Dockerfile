@@ -3,6 +3,7 @@
 
 # run this whenever you want to start developing
 #docker run -it --rm -p 3000:3000 -v [current_path]:/app react_dev_envt
+#docker run -it --rm -p 3000:3000 -v D:\Sync\NUS\CS3219\Assignment" "and" "Project\cs3219_project\frontend\app:/app react_dev_envt
 FROM node:current-alpine
 
 ENV NPM_CONFIG_LOGLEVEL warn

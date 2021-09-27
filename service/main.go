@@ -4,13 +4,21 @@ import (
 	"cs3219_project/handlers"
 	"cs3219_project/storage"
 	"fmt"
-	"github.com/gin-gonic/gin"
+
 	"net/http"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
 
+	corsConf := cors.DefaultConfig()
+	corsConf.AddAllowMethods("PUT", "GET", "POST", "DELETE", "OPTIONS")
+	corsConf.AllowAllOrigins = true
+
+	r.Use(cors.New(corsConf))
 	r.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "hello world :)")
 	})

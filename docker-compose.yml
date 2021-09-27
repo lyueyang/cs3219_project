@@ -1,7 +1,9 @@
+version: "2"
+
 services:
   app:
     build: service
-    hostname: service_url
+    hostname: serviceurl
   webserver:
     build: webserver
     ports:

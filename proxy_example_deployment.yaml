@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-example
+spec:
+  replicas: 5
+  selector: 
+    matchLabels:
+      app: proxy-example
+  template:
+    metadata:
+      labels:
+        app: proxy-example
+    spec:
+      hostname: serviceurl
+      containers:      
+      - name: service
+        image: lyueyang/cs3219_project_app
+        ports:
+        - containerPort: 6789
+      - name: webserver
+        image: lyueyang/cs3219_project_webserver
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-example-service
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30000
+    protocol: TCP
+  selector:
+    app: proxy-example
