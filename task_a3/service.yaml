@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: foo
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      hostname: foo
+      containers:      
+      - name: foo
+        image: lyueyang/service_foo
+        ports:
+        - containerPort: 6789
+        resources:
+          requests:
+            cpu: 50m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foo-service
+spec:
+  type: NodePort
+  ports:
+  - port: 6789
+    targetPort: 6789
+    nodePort: 30000
+  selector:
+    app: foo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bar
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: bar
+  template:
+    metadata:
+      labels:
+        app: bar
+    spec:
+      hostname: bar
+      containers:      
+      - name: bar
+        image: lyueyang/service_bar
+        ports:
+        - containerPort: 6789
+        resources:
+          requests:
+            cpu: 50m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bar-service
+spec:
+  type: NodePort
+  ports:
+  - port: 6789
+    targetPort: 6789
+    nodePort: 31000
+  selector:
+    app: bar
